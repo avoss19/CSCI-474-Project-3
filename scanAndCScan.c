@@ -6,21 +6,23 @@
  * @brief                      	Peforms either SCAN or C-SCAN scheduling policies
  * @author              Dylan Martie
  * @date                5 Dec 21
- * @lastUpdated         5 Dec 21
+ * @lastUpdated         6 Dec 21
  * @return              void (prints to command line)
  * @arg                                 startTrack - Starting track for policy, either 0, 100, or 199
- *                                      file - Input file of requests
+ *                                      inputfile - Input file of requests
+					size - Size of buffer
  *                                      cScan - Determines if running SCAN or C-Scan
  * @note                This function currently prints out requested values to command line only
  *****************************************************************************/
-void scanAndCScan(int startTrack, FILE *file, bool cScan){
+int scanAndCScan(int startTrack, char* inputFile, int size, bool cScan){
 
-	int bufferSize = 10;
+	int bufferSize = size;
 	int currentTrack = startTrack;
 	int requestBuffer[bufferSize];
 	int tableResults[1000][2];
 	int direction = 1; // 0 is to the left, 1 to right 
 
+	FILE *file = fopen(inputFile, "r");
 
 	// Initial population of buffer
 	for (int i = 0; i < bufferSize; i++) {
@@ -133,6 +135,17 @@ void scanAndCScan(int startTrack, FILE *file, bool cScan){
 //		printf("Tracks Traversed: %d\n", tableResults[i][1]);
 //	}
 
+	fclose(file);
+
+	// Calculate Average
+	int total = 0;
+        for (int i = 0; i < 1000; i++) {
+
+                total += tableResults[i][1];
+        }
+        int averageTraversedTracks = total / 1000;
+
+        return averageTraversedTracks;
 }
 
 
@@ -146,11 +159,8 @@ int main(int argc, char** argv) {
 	// Convert from string to number
         int startTrack = atoi(startTrackStr);
 
-	FILE *file = fopen(inputFile, "r");
+	int average = scanAndCScan(startTrack, inputFile, 10, false);
 
-	scanAndCScan(startTrack, file, false);
-
-	fclose(file);
-
+	printf("Average Tracks Traversed: %d\n", average);
 }
 
