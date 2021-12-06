@@ -8,15 +8,18 @@
  * @lastUpdated         6 Dec 21
  * @return              void (prints to command line)
  * @arg                                 startTrack - Starting track for policy, either 0, 100, or 199
- *                                      file - Input file of requests
+ *                                      inputfile - Input file of requests
+ *                                      size - Size of buffer
  * @note                This function currently prints out requested values to command line only
  *****************************************************************************/
-void sstfScan(int startTrack, FILE *file) {
+int sstfScan(int startTrack, char* inputFile, int size) {
 
-	int bufferSize = 10;
+	int bufferSize = size;
 	int currentTrack = startTrack;
 	int requestBuffer[bufferSize];
 	int tableResults[1000][2];
+
+	FILE *file = fopen(inputFile, "r");
 
 	// Initial population of buffer
 	for (int i = 0; i < bufferSize; i++) {
@@ -47,15 +50,32 @@ void sstfScan(int startTrack, FILE *file) {
 		currentTrack = nextTrack[0];
 		int index = nextTrack[2];
 
-		int buff[1];
-		fscanf(file, "%d", buff);
-		requestBuffer[index] = buff[0];
+		// Final 10 processed requests do not read in new value
+			if (i < 991) {
+				int buff[1];
+				fscanf(file, "%d", buff);
+				requestBuffer[index] = buff[0];
+			}
+			else
+				requestBuffer[index] = 999;
 	}
 
 //	for (int i = 0; i < 100; i++) {
 //		printf("Next Track: %d\n", tableResults[i][0]);
 //		printf("Tracks Traversed: %d\n", tableResults[i][1]);
 //	}
+
+	fclose(file);
+
+	// Calculate Average
+	int total = 0;
+	for (int i = 0; i < 1000; i++) {
+
+		total += tableResults[i][1];
+	}
+	int averageTraversedTracks = total / 1000;
+
+	return averageTraversedTracks;
 
 }
 
@@ -69,10 +89,6 @@ int main(int argc, char** argv) {
 	// Convert from string to number
         int startTrack = atoi(startTrackStr);
 
-	FILE *file = fopen(inputFile, "r");
-
-	sstfScan(startTrack, file);
-
-	fclose(file);
-
+	int average = sstfScan(startTrack, inputFile, 10);
+	printf("Average: %d\n", average);
 }
