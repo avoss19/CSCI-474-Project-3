@@ -15,7 +15,7 @@
  *****************************************************************************/
 void scanAndCScan(int startTrack, FILE *file, bool cScan){
 
-	int bufferSize = 9;
+	int bufferSize = 10;
 	int currentTrack = startTrack;
 	int requestBuffer[bufferSize];
 	int tableResults[1000][2];
@@ -73,8 +73,8 @@ void scanAndCScan(int startTrack, FILE *file, bool cScan){
 			currentTrack = nextTrack[0];
 			int index = nextTrack[2];
 
-			// Final 8 processed requests do not read in new value
-			if (tracksProcessed < 992) {
+			// Final 10 processed requests do not read in new value
+			if (tracksProcessed < 991) {
 				int buff[1];
 				fscanf(file, "%d", buff);
 				requestBuffer[index] = buff[0];
@@ -115,8 +115,8 @@ void scanAndCScan(int startTrack, FILE *file, bool cScan){
 			currentTrack = nextTrack[0];
 			int index = nextTrack[2];
 
-			// Final 8 processed requests do not read in new value
-			if (tracksProcessed < 992) {
+			// Final 10 processed requests do not read in new value
+			if (tracksProcessed < 991) {
 				int buff[1];
 				fscanf(file, "%d", buff);
 				requestBuffer[index] = buff[0];
@@ -128,10 +128,10 @@ void scanAndCScan(int startTrack, FILE *file, bool cScan){
 
 
 	}
-	//for (int i = 0; i < 100; i++) {
-	//	printf("Next Track: %d\n", tableResults[i][0]);
-	//	printf("Tracks Traversed: %d\n", tableResults[i][1]);
-	//}
+//	for (int i = 0; i < 100; i++) {
+//		printf("Next Track: %d\n", tableResults[i][0]);
+//		printf("Tracks Traversed: %d\n", tableResults[i][1]);
+//	}
 
 }
 
@@ -148,7 +148,7 @@ int main(int argc, char** argv) {
 
 	FILE *file = fopen(inputFile, "r");
 
-	scanAndCScan(startTrack, file, true);
+	scanAndCScan(startTrack, file, false);
 
 	fclose(file);
 
