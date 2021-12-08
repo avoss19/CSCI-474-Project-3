@@ -320,10 +320,12 @@ int main(int argc, char** argv) {
         nStepScanResults[i - 1][0] = i;
     }
 
-    char* fileName = "file1.txt";
+    char* filePattern = "file%d.txt";
 
+    char fileName[10];
     for (int fileNum = 1; fileNum <= 5; fileNum++)
     {
+        sprintf(fileName, filePattern, fileNum);
         for (int position = 1; position <= 3; position ++)
         {
             int startingPosition;
