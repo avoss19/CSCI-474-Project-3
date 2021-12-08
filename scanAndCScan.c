@@ -3,10 +3,10 @@
 #include <stdbool.h>
 
 /*****************************************************************************
- * @brief                      	Peforms either SCAN or C-SCAN scheduling policies
+ * @brief               Peforms either SCAN or C-SCAN scheduling policies
  * @author              Dylan Martie
  * @date                5 Dec 21
- * @lastUpdated         6 Dec 21
+ * @lastUpdated         8 Dec 21
  * @return              void (prints to command line)
  * @arg                                 startTrack - Starting track for policy, either 0, 100, or 199
  *                                      inputfile - Input file of requests
@@ -23,6 +23,7 @@ int scanAndCScan(int startTrack, char* inputFile, int size, bool cScan){
 	int direction = 1; // 0 is to the left, 1 to right 
 
 	FILE *file = fopen(inputFile, "r");
+	//int testArray[9] = {55, 58, 39, 18, 90, 160, 150, 38, 184};
 
 	// Initial population of buffer
 	for (int i = 0; i < bufferSize; i++) {
@@ -33,6 +34,9 @@ int scanAndCScan(int startTrack, char* inputFile, int size, bool cScan){
 	}
 
 	int tracksProcessed = 0;
+	int resetDistance = 0;
+	bool trackReset = false;
+
 
 	// Start SCAN scheduling policy
 	while (tracksProcessed < 1000) {
@@ -56,7 +60,9 @@ int scanAndCScan(int startTrack, char* inputFile, int size, bool cScan){
 			}
 			// For C-Scan, resets current track back to left side
 			if (nextTrack[0] == 201 && cScan) {
+				resetDistance = currentTrack;
 				currentTrack = 0;
+				trackReset = true;
 				continue;
 			}
 
@@ -64,6 +70,12 @@ int scanAndCScan(int startTrack, char* inputFile, int size, bool cScan){
 			if (nextTrack[0] == 201) {
 				direction = 0;
 				continue;
+			}
+
+			// For C-scan, needed to calculate distance whenever track reset to 0
+			if (trackReset) {
+				nextTrack[1] = resetDistance - nextTrack[1];
+				trackReset = false;
 			}
 
 			// Store next track accessed and # of tracks travered
