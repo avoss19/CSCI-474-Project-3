@@ -11,7 +11,7 @@
 * NOTES :
 *       None as of yet
 *
-* AUTHOR :    Andrew Voss, Dylan Marite, Meagan Olson, and Joshua Molden       START DATE :    8 Dec 21
+* AUTHOR :    Andrew Voss, Dylan Martie, Meagan Olson, and Joshua Molden       START DATE :    8 Dec 21
 *
 * VERSION:
 *       1.0.0
@@ -105,7 +105,7 @@ double sstfScan(int startTrack, char* inputFile, int size)
  * @brief               Peforms either SCAN or C-SCAN scheduling policies
  * @author              Dylan Martie
  * @date                5 Dec 21
- * @lastUpdated         6 Dec 21
+ * @lastUpdated         8 Dec 21
  * @return              void (prints to command line)
  * @arg                 startTrack - Starting track for policy, either 0, 100, or 199
  *                      inputfile - Input file of requests
@@ -135,6 +135,10 @@ double scanAndCScan(int startTrack, char* inputFile, int size, bool cScan){
 
     int tracksProcessed = 0;
 
+    // Additional variables for C-scan
+    int resetDistance = 0;
+    bool trackReset = false;
+
     // Start SCAN scheduling policy
     while (tracksProcessed < 1000) 
     {
@@ -159,7 +163,9 @@ double scanAndCScan(int startTrack, char* inputFile, int size, bool cScan){
             // For C-Scan, resets current track back to left side
             if (nextTrack[0] == 201 && cScan) 
             {
+		resetDistance = currentTrack;
                 currentTrack = 0;
+		trackReset = true;
                 continue;
             }
 
@@ -169,6 +175,12 @@ double scanAndCScan(int startTrack, char* inputFile, int size, bool cScan){
                 direction = 0;
                 continue;
             }
+
+	    // For C-scan, needed to calculate distance whenever track resets to 0
+	    if (trackReset) {
+		nextTrack[1] = resetDistance - nextTrack[1];
+		trackReset = false;
+	    }
 
             // Store next track accessed and # of tracks travered
             tableResults[tracksProcessed][0] = nextTrack[0];
