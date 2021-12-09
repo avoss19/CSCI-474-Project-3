@@ -146,7 +146,7 @@ int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequ
     }
 	// Fill the remainder buffer if it needs to exist
     if (remainderExists) {
-        for (int i = 0; i <= numRemainder) {
+        for (int i = 0; i <= numRemainder; i++) {
             int buff[1];
             fscanf(file, "%d", buff);
             lastBuffer[i] = buff[0];
@@ -157,20 +157,20 @@ int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequ
 	// LIFO requires the requests to be filled in reverse order, and will not have a remainder
     if (lifo) {
         for (int i = (numBuffers - 1); i >= 0; i--) {
-            results = scan(&currentTrack, buffers[i], bufferLength, &resultsIndex, results);
+            scan(&currentTrack, buffers[i], bufferLength, &resultsIndex, results);
         }
         return avg(results, totalRequests);
     }
 
 	// For all other algorithms, perform SCAN on the buffers in the order in which they were filled
     for (int i = 0; i <= numBuffers; i++) {
-        results = scan(&currentTrack, buffers[i], bufferLength, &resultsIndex, results);
+        scan(&currentTrack, buffers[i], bufferLength, &resultsIndex, results);
     }
 	// If there is no remainder buffer, return the results
 	if (!remainderExists) return avg(results, totalRequests);
 
 	// If there is a remainder buffer, perform SCAN on it as well and then return the results
-	results = scan(&currentTrack, lastBuffer, bufferLength, &resultsIndex, results);
+	scan(&currentTrack, lastBuffer, bufferLength, &resultsIndex, results);
 	return avg(results, totalRequests);
 }	
 
