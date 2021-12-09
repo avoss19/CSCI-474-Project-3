@@ -94,7 +94,7 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 			*currentTrack = nextTrack[0];
 			int index = nextTrack[2];
 			inputArr[index] = 201;
-			printf("Tracks Processed: %d\n", tracksProcessed);
+			printf("\tTracks Processed: %d\n", tracksProcessed);
 			printf("\tArray: {%d, %d, %d, %d, %d, %d, %d, %d, %d}\n\n", inputArr[0], inputArr[1], inputArr[2], inputArr[3], inputArr[4], inputArr[5], inputArr[6], inputArr[7], inputArr[8]);
 		}
 	}
