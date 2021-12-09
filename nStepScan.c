@@ -64,12 +64,12 @@ int scan(int *currentTrack, int inputArr[], int bufferSize, int *currentIndex, i
 			for (int j = 0; j < bufferSize; j++) {
 
 				// If track is smaller than current Track, continue on
-				if (requestBuffer[j] <= *currentTrack) {
-					int tracksTraversed = (*currentTrack - requestBuffer[j]);
+				if (inputArr[j] <= *currentTrack) {
+					int tracksTraversed = (*currentTrack - inputArr[j]);
 
 					// If track distance is smaller than what is stored, store at new next track
 					if (tracksTraversed < nextTrack[1]) {
-						nextTrack[0] = requestBuffer[j];
+						nextTrack[0] = inputArr[j];
 						nextTrack[1] = tracksTraversed;
 						nextTrack[2] = j;
 					}
@@ -157,20 +157,20 @@ int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequ
 	// LIFO requires the requests to be filled in reverse order, and will not have a remainder
     if (lifo) {
         for (int i = (numBuffers - 1); i >= 0; i--) {
-            results = scan(&currentTrack, buffers[i], int bufferLength, &resultsIndex, results);
+            results = scan(&currentTrack, buffers[i], bufferLength, &resultsIndex, results);
         }
         return avg(results, totalRequests);
     }
 
 	// For all other algorithms, perform SCAN on the buffers in the order in which they were filled
     for (int i = 0; i <= numBuffers; i++) {
-        results = scan(&currentTrack, buffers[i], int bufferLength, &resultsIndex, results);
+        results = scan(&currentTrack, buffers[i], bufferLength, &resultsIndex, results);
     }
 	// If there is no remainder buffer, return the results
 	if (!remainderExists) return avg(results, totalRequests);
 
 	// If there is a remainder buffer, perform SCAN on it as well and then return the results
-	results = scan(&currentTrack, lastBuffer, int bufferLength, &resultsIndex, results);
+	results = scan(&currentTrack, lastBuffer, bufferLength, &resultsIndex, results);
 	return avg(results, totalRequests);
 }	
 
