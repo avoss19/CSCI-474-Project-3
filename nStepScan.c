@@ -45,6 +45,9 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 			// No larger track found, switch directions
 			if (nextTrack[0] == 201) {
 				direction = 0;
+				*currentTrack = nextTrack[0];
+				int index = nextTrack[2];
+				inputArr[index] = -1;
 				continue;
 			}
 
@@ -79,6 +82,9 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 			// No smaller Track found, switch directions
 			if (nextTrack[0] == 201) {
 				direction = 1;
+				*currentTrack = nextTrack[0];
+				int index = nextTrack[2];
+				inputArr[index] = -1;
 				continue;
 			}
 
@@ -87,7 +93,7 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 			printf("Next track: %d\tNum tracks: %d\n", nextTrack[0], nextTrack[1]);
 			tracksProcessed++;
 
-			// Set new current track and add new request in buffer
+			// Set new current track
 			*currentTrack = nextTrack[0];
 			int index = nextTrack[2];
 			inputArr[index] = -1;
