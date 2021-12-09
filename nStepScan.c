@@ -108,7 +108,8 @@ int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequ
     int numRemainder = totalRequests % bufferLength;
     bool remainderExists = numRemainder == 0;
     int numBuffers = (int) floor(totalRequests / bufferLength);
-    int buffers[numBuffers][bufferLength];
+    //int buffers[numBuffers][bufferLength];
+	int buffers[1][9]; //TESTING ONLY
     int lastBuffer[numRemainder]; // Will have length of zero if no remainder
 
 	FILE *file = fopen(inputFile, "r");
@@ -131,7 +132,6 @@ int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequ
     fclose(file);
 
 	//FOR TESTING ONLY
-	buffers = [1][9];
 	buffers[0] = {55, 58, 39, 18, 90, 160, 150, 38, 184};
 	bufferLength = 9;
 	totalRequests = 9;
