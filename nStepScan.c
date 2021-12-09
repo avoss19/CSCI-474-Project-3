@@ -44,6 +44,8 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 			// No larger track found, switch directions
 			if (nextTrack[0] == 201) {
 				direction = 0;
+				int index = nextTrack[2];
+				inputArr[index] = 201;
 				continue;
 			}
 
@@ -78,6 +80,8 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 			// No smaller Track found, switch directions
 			if (nextTrack[0] == 201) {
 				direction = 1;
+				int index = nextTrack[2];
+				inputArr[index] = -1;
 				continue;
 			}
 
