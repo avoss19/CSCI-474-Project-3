@@ -49,15 +49,13 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 
 			// Store next track accessed and # of tracks traversed
 			totalTracksTraversed += nextTrack[1];
-			printf("Next track: %d\tNum tracks: %d\n", nextTrack[0], nextTrack[1]);
 			tracksProcessed++;
+			printf("Next track: %d\tNum tracks: %d\tTracks Processed: %d\n", nextTrack[0], nextTrack[1], tracksProcessed);
 
 			// Set new current track and add new request in buffer
 			*currentTrack = nextTrack[0];
 			int index = nextTrack[2];
 			inputArr[index] = -1;
-			printf("\tTracks Processed: %d\n", tracksProcessed);
-			printf("\tArray: {%d, %d, %d, %d, %d, %d, %d, %d, %d}\n\n", inputArr[0], inputArr[1], inputArr[2], inputArr[3], inputArr[4], inputArr[5], inputArr[6], inputArr[7], inputArr[8]);
 		}
 
 		// Moving left
@@ -87,15 +85,13 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 
 			// Store next track accessed and # of tracks traversed
 			totalTracksTraversed += nextTrack[1];
-			printf("Next track: %d\tNum tracks: %d\n", nextTrack[0], nextTrack[1]);
 			tracksProcessed++;
+			printf("Next track: %d\tNum tracks: %d\tTracks Processed: %d\n", nextTrack[0], nextTrack[1], tracksProcessed);
 
 			// Set new current track
 			*currentTrack = nextTrack[0];
 			int index = nextTrack[2];
 			inputArr[index] = 201;
-			printf("\tTracks Processed: %d\n", tracksProcessed);
-			printf("\tArray: {%d, %d, %d, %d, %d, %d, %d, %d, %d}\n\n", inputArr[0], inputArr[1], inputArr[2], inputArr[3], inputArr[4], inputArr[5], inputArr[6], inputArr[7], inputArr[8]);
 		}
 	}
 	return totalTracksTraversed;
