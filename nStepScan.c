@@ -80,7 +80,7 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 
 			// Store next track accessed and # of tracks traversed
 			totalTracksTraversed += nextTrack[1];
-			printf("Next track: %d\tNum tracks: %d\n", nextTrack[0], nextTrack[1])
+			printf("Next track: %d\tNum tracks: %d\n", nextTrack[0], nextTrack[1]);
 			tracksProcessed++;
 
 			// Set new current track and add new request in buffer
