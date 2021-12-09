@@ -78,7 +78,7 @@ int scanAndCScan(int startTrack, char* inputFile, int size, bool cScan){
 				trackReset = false;
 			}
 
-			// Store next track accessed and # of tracks travered
+			// Store next track accessed and # of tracks traversed
 			tableResults[tracksProcessed][0] = nextTrack[0];
 			tableResults[tracksProcessed][1] = nextTrack[1];
 			tracksProcessed++;

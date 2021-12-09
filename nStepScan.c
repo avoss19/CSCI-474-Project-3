@@ -44,8 +44,6 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 			// No larger track found, switch directions
 			if (nextTrack[0] == 201) {
 				direction = 0;
-				int index = nextTrack[2];
-				inputArr[index] = 201;
 				continue;
 			}
 
@@ -58,6 +56,8 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 			*currentTrack = nextTrack[0];
 			int index = nextTrack[2];
 			inputArr[index] = -1;
+			printf("Tracks Processed: %d\n", tracksProcessed);
+			printf("\tArray: {%d, %d, %d, %d, %d, %d, %d, %d, %d}\n\n", inputArr[0], inputArr[1], inputArr[2], inputArr[3], inputArr[4], inputArr[5], inputArr[6], inputArr[7], inputArr[8]);
 		}
 
 		// Moving left
@@ -94,6 +94,8 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 			*currentTrack = nextTrack[0];
 			int index = nextTrack[2];
 			inputArr[index] = 201;
+			printf("Tracks Processed: %d\n", tracksProcessed);
+			printf("\tArray: {%d, %d, %d, %d, %d, %d, %d, %d, %d}\n\n", inputArr[0], inputArr[1], inputArr[2], inputArr[3], inputArr[4], inputArr[5], inputArr[6], inputArr[7], inputArr[8]);
 		}
 	}
 	return totalTracksTraversed;
