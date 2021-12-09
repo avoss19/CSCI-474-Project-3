@@ -14,7 +14,6 @@
  *						bufferSize - Size of buffer
  *****************************************************************************/
 int scan(int *currentTrack, int inputArr[], int bufferSize) {
-	printf("Starting SCAN\n");
 
 	int direction = 1; // 0 is to the left, 1 to right 
 

@@ -81,6 +81,7 @@ int scanAndCScan(int startTrack, char* inputFile, int size, bool cScan){
 			// Store next track accessed and # of tracks travered
 			tableResults[tracksProcessed][0] = nextTrack[0];
 			tableResults[tracksProcessed][1] = nextTrack[1];
+			printf("Next track: %d\tNum tracks: %d\n", nextTrack[0], nextTrack[1]);
 			tracksProcessed++;
 
 			// Set new current track and add new request in buffer
@@ -123,6 +124,7 @@ int scanAndCScan(int startTrack, char* inputFile, int size, bool cScan){
                         // Store next track accessed and # of tracks travered
                         tableResults[tracksProcessed][0] = nextTrack[0];
                         tableResults[tracksProcessed][1] = nextTrack[1];
+						printf("Next track: %d\tNum tracks: %d\n", nextTrack[0], nextTrack[1]);
                         tracksProcessed++;
 
 			// Set new current track and add new request in buffer
