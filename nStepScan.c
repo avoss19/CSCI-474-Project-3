@@ -14,6 +14,7 @@
  *						bufferSize - Size of buffer
  *****************************************************************************/
 int scan(int *currentTrack, int inputArr[], int bufferSize) {
+	printf("Starting SCAN");
 
 	int direction = 1; // 0 is to the left, 1 to right 
 
@@ -49,6 +50,7 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 
 			// Store next track accessed and # of tracks traversed
 			totalTracksTraversed += nextTrack[1];
+			printf("Next track: %d\tNum tracks: %d\n", nextTrack[0], nextTrack[1]);
 			tracksProcessed++;
 
 			// Set new current track and add new request in buffer
