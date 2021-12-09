@@ -90,7 +90,7 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 			// Set new current track
 			*currentTrack = nextTrack[0];
 			int index = nextTrack[2];
-			inputArr[index] = -1;
+			inputArr[index] = 201;
 		}
 	}
 	return totalTracksTraversed;
