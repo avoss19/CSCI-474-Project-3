@@ -8,19 +8,17 @@
  * @author              Dylan Martie, Meagan Olson
  * @date                5 Dec 21
  * @lastUpdated         9 Dec 21
- * @return              void (prints to command line)
+ * @return              int - total number of tracks traversed in the course of the algorithm
  * @arg                 startTrack - Starting track for policy, either 0, 100, or 199
  *                      inputArr - Input array of requests
  *						bufferSize - Size of buffer
- *                      currentIndex - Index position of the next result to be placed in the results array
- *                      results - Array of number of tracks traversed, to be added to and returned
- * @note                This function currently prints out requested values to command line only
  *****************************************************************************/
-int scan(int *currentTrack, int inputArr[], int bufferSize, int *currentIndex, int results[]) {
+int scan(int *currentTrack, int inputArr[], int bufferSize) {
 
 	int direction = 1; // 0 is to the left, 1 to right 
 
 	int tracksProcessed = 0;
+	int totalTracksTraversed = 0;
 
 	// Start SCAN scheduling policy
 	while (tracksProcessed < bufferSize) {
@@ -49,9 +47,8 @@ int scan(int *currentTrack, int inputArr[], int bufferSize, int *currentIndex, i
 				continue;
 			}
 
-			// Store next track accessed and # of tracks travered
-			results[*currentIndex] = nextTrack[1];
-			*currentIndex++;
+			// Store next track accessed and # of tracks traversed
+			totalTracksTraversed += nextTrack[1];
 			tracksProcessed++;
 
 			// Set new current track and add new request in buffer
@@ -82,31 +79,14 @@ int scan(int *currentTrack, int inputArr[], int bufferSize, int *currentIndex, i
 			}
 
 			// Store next track accessed and # of tracks traversed
-			results[*currentIndex] = nextTrack[1];
-			*currentIndex++;
+			totalTracksTraversed += nextTrack[1];
 			tracksProcessed++;
 
 			// Set new current track and add new request in buffer
 			*currentTrack = nextTrack[0];
 		}
 	}
-}
-
-/*****************************************************************************
- * @brief               Calculates the average of a list of integers
- * @author              Meagan Olson
- * @date                9 Dec 21
- * @lastUpdated         9 Dec 21
- * @return              int - average of array of integers
- * @arg                 arr - Input array to be averaged
- *                      length - Length of input array
- *****************************************************************************/
-int avg(int arr[], int length) {
-	int total = 0;
-	for (int i = 0; i <= length; i++) {
-		total += arr[i];
-	}
-	return (int) (total / length);
+	return totalTracksTraversed;
 }
 
 /*****************************************************************************
@@ -122,11 +102,6 @@ int avg(int arr[], int length) {
  * @note                This function currently prints out requested values to command line only
  *****************************************************************************/
 int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequests, bool lifo) {
-
-	// Initialize variables to keep track of algorithm results
-    int resultsIndex = 0;
-	int results[totalRequests];
-
 	// "Remainder" refers to any requests left over after buffers have been filled completely
 	// May occur if the number of requests does not divide among the buffers equally
     int numRemainder = totalRequests % bufferLength;
@@ -156,22 +131,25 @@ int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequ
 
 	// LIFO requires the requests to be filled in reverse order, and will not have a remainder
     if (lifo) {
+		int totalTracksTraversed = 0;
         for (int i = (numBuffers - 1); i >= 0; i--) {
-            scan(&currentTrack, buffers[i], bufferLength, &resultsIndex, results);
+            totalTracksTraversed += scan(&currentTrack, buffers[i], bufferLength);
         }
-        return avg(results, totalRequests);
+        return ((int) (totalTracksTraversed / totalRequests));
     }
 
 	// For all other algorithms, perform SCAN on the buffers in the order in which they were filled
+	int totalTracksTraversed = 0;
     for (int i = 0; i <= numBuffers; i++) {
-        scan(&currentTrack, buffers[i], bufferLength, &resultsIndex, results);
+        totalTracksTraversed += scan(&currentTrack, buffers[i], bufferLength);
     }
+	
 	// If there is no remainder buffer, return the results
-	if (!remainderExists) return avg(results, totalRequests);
+	if (!remainderExists) return ((int) (totalTracksTraversed / totalRequests));
 
 	// If there is a remainder buffer, perform SCAN on it as well and then return the results
-	scan(&currentTrack, lastBuffer, bufferLength, &resultsIndex, results);
-	return avg(results, totalRequests);
+	totalTracksTraversed += (&currentTrack, lastBuffer, bufferLength);
+	return ((int) (totalTracksTraversed / totalRequests));
 }	
 
 int main(int argc, char** argv) {
