@@ -56,7 +56,7 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 			*currentTrack = nextTrack[0];
 			int index = nextTrack[2];
 			inputArr[index] = -1;
-			printf("Tracks Processed: %d\n", tracksProcessed);
+			printf("\tTracks Processed: %d\n", tracksProcessed);
 			printf("\tArray: {%d, %d, %d, %d, %d, %d, %d, %d, %d}\n\n", inputArr[0], inputArr[1], inputArr[2], inputArr[3], inputArr[4], inputArr[5], inputArr[6], inputArr[7], inputArr[8]);
 		}
 
@@ -124,8 +124,8 @@ int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequ
 
 	FILE *file = fopen(inputFile, "r");
 
-    for (int i = 0; i <= numBuffers; i++) {
-        for (int j = 0; j <= bufferLength; j++) {
+    for (int i = 0; i < numBuffers; i++) {
+        for (int j = 0; j < bufferLength; j++) {
             int buff[1];
             fscanf(file, "%d", buff);
             buffers[i][j] = buff[0];
@@ -133,7 +133,7 @@ int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequ
     }
 	// Fill the remainder buffer if it needs to exist
     if (remainderExists) {
-        for (int i = 0; i <= numRemainder; i++) {
+        for (int i = 0; i < numRemainder; i++) {
             int buff[1];
             fscanf(file, "%d", buff);
             lastBuffer[i] = buff[0];
@@ -152,7 +152,7 @@ int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequ
 
 	// For all other algorithms, perform SCAN on the buffers in the order in which they were filled
 	int totalTracksTraversed = 0;
-    for (int i = 0; i <= numBuffers; i++) {
+    for (int i = 0; i < numBuffers; i++) {
         totalTracksTraversed += scan(&currentTrack, buffers[i], bufferLength);
     }
 
