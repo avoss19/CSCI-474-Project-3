@@ -111,24 +111,24 @@ int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequ
     //int buffers[numBuffers][bufferLength];
     int lastBuffer[numRemainder]; // Will have length of zero if no remainder
 
-	FILE *file = fopen(inputFile, "r");
+	// FILE *file = fopen(inputFile, "r");
 
-    for (int i = 0; i <= numBuffers; i++) {
-        for (int j = 0; j <= bufferLength; j++) {
-            int buff[1];
-            fscanf(file, "%d", buff);
-            buffers[i][j] = buff[0];
-        }
-    }
-	// Fill the remainder buffer if it needs to exist
-    if (remainderExists) {
-        for (int i = 0; i <= numRemainder; i++) {
-            int buff[1];
-            fscanf(file, "%d", buff);
-            lastBuffer[i] = buff[0];
-        }
-    }
-    fclose(file);
+    // for (int i = 0; i <= numBuffers; i++) {
+    //     for (int j = 0; j <= bufferLength; j++) {
+    //         int buff[1];
+    //         fscanf(file, "%d", buff);
+    //         buffers[i][j] = buff[0];
+    //     }
+    // }
+	// // Fill the remainder buffer if it needs to exist
+    // if (remainderExists) {
+    //     for (int i = 0; i <= numRemainder; i++) {
+    //         int buff[1];
+    //         fscanf(file, "%d", buff);
+    //         lastBuffer[i] = buff[0];
+    //     }
+    // }
+    // fclose(file);
 
 	//FOR TESTING ONLY
 	int buffers[1][9] = {{55, 58, 39, 18, 90, 160, 150, 38, 184}};
