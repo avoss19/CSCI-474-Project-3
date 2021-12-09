@@ -14,7 +14,7 @@
  *						bufferSize - Size of buffer
  *****************************************************************************/
 int scan(int *currentTrack, int inputArr[], int bufferSize) {
-	printf("Starting SCAN");
+	printf("Starting SCAN\n");
 
 	int direction = 1; // 0 is to the left, 1 to right 
 
@@ -110,34 +110,27 @@ int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequ
     int numRemainder = totalRequests % bufferLength;
     bool remainderExists = numRemainder == 0;
     int numBuffers = (int) floor(totalRequests / bufferLength);
-    //int buffers[numBuffers][bufferLength];
+    int buffers[numBuffers][bufferLength];
     int lastBuffer[numRemainder]; // Will have length of zero if no remainder
 
-	// FILE *file = fopen(inputFile, "r");
+	FILE *file = fopen(inputFile, "r");
 
-    // for (int i = 0; i <= numBuffers; i++) {
-    //     for (int j = 0; j <= bufferLength; j++) {
-    //         int buff[1];
-    //         fscanf(file, "%d", buff);
-    //         buffers[i][j] = buff[0];
-    //     }
-    // }
-	// // Fill the remainder buffer if it needs to exist
-    // if (remainderExists) {
-    //     for (int i = 0; i <= numRemainder; i++) {
-    //         int buff[1];
-    //         fscanf(file, "%d", buff);
-    //         lastBuffer[i] = buff[0];
-    //     }
-    // }
-    // fclose(file);
-
-	//FOR TESTING ONLY
-	int buffers[1][9] = {{55, 58, 39, 18, 90, 160, 150, 38, 184}};
-	bufferLength = 9;
-	totalRequests = 9;
-	currentTrack = 100;
-	lifo = false;
+    for (int i = 0; i <= numBuffers; i++) {
+        for (int j = 0; j <= bufferLength; j++) {
+            int buff[1];
+            fscanf(file, "%d", buff);
+            buffers[i][j] = buff[0];
+        }
+    }
+	// Fill the remainder buffer if it needs to exist
+    if (remainderExists) {
+        for (int i = 0; i <= numRemainder; i++) {
+            int buff[1];
+            fscanf(file, "%d", buff);
+            lastBuffer[i] = buff[0];
+        }
+    }
+    fclose(file);
 
 	// LIFO requires the requests to be filled in reverse order, and will not have a remainder
     if (lifo) {
