@@ -80,6 +80,7 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 
 			// Store next track accessed and # of tracks traversed
 			totalTracksTraversed += nextTrack[1];
+			printf("Next track: %d\tNum tracks: %d\n", nextTrack[0], nextTrack[1])
 			tracksProcessed++;
 
 			// Set new current track and add new request in buffer
@@ -129,6 +130,14 @@ int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequ
     }
     fclose(file);
 
+	//FOR TESTING ONLY
+	buffers = [1][9];
+	buffers[0] = {55, 58, 39, 18, 90, 160, 150, 38, 184};
+	bufferLength = 9;
+	totalRequests = 9;
+	currentTrack = 100;
+	lifo = false;
+
 	// LIFO requires the requests to be filled in reverse order, and will not have a remainder
     if (lifo) {
 		int totalTracksTraversed = 0;
@@ -143,7 +152,7 @@ int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequ
     for (int i = 0; i <= numBuffers; i++) {
         totalTracksTraversed += scan(&currentTrack, buffers[i], bufferLength);
     }
-	
+
 	// If there is no remainder buffer, return the results
 	if (!remainderExists) return ((int) (totalTracksTraversed / totalRequests));
 
