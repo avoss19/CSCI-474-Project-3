@@ -50,7 +50,7 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 			// Store next track accessed and # of tracks traversed
 			totalTracksTraversed += nextTrack[1];
 			tracksProcessed++;
-			printf("Next track: %d\tNum tracks: %d\tTracks Processed: %d\n", nextTrack[0], nextTrack[1], tracksProcessed);
+			//printf("Next track: %d\tNum tracks: %d\tTracks Processed: %d\n", nextTrack[0], nextTrack[1], tracksProcessed);
 
 			// Set new current track and add new request in buffer
 			*currentTrack = nextTrack[0];
@@ -113,13 +113,14 @@ double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalR
 	// "Remainder" refers to any requests left over after buffers have been filled completely
 	// May occur if the number of requests does not divide among the buffers equally
     int numRemainder = totalRequests % bufferLength;
-    bool remainderExists = numRemainder == 0;
+    bool remainderExists = (numRemainder == 0);
     int numBuffers = (int) floor(totalRequests / bufferLength);
     int buffers[numBuffers][bufferLength];
     int lastBuffer[numRemainder]; // Will have length of zero if no remainder
 
 	printf("NumBuffers: %d\n", numBuffers);
 	printf("NumRemainder: %d\n", numRemainder);
+	printf("RemainderExists: " + (remainderExists ? "true\n" : "false\n"));
 
 	FILE *file = fopen(inputFile, "r");
 
