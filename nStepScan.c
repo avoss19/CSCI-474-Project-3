@@ -134,6 +134,7 @@ double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalR
     }
 	// Fill the remainder buffer if it needs to exist
     if (remainderExists) {
+		printf("Filling the remainder buffer\n");
         for (int i = 0; i < numRemainder; i++) {
             int buff[1];
             fscanf(file, "%d", buff);
@@ -147,7 +148,6 @@ double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalR
 		int totalTracksTraversed = 0;
         for (int i = (numBuffers - 1); i >= 0; i--) {
             totalTracksTraversed += scan(&currentTrack, buffers[i], bufferLength);
-			printf("Scanning buffer: %d\n", i);
         }
         return ((int) (totalTracksTraversed / totalRequests));
     }
