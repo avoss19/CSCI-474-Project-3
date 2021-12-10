@@ -118,6 +118,9 @@ double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalR
     int buffers[numBuffers][bufferLength];
     int lastBuffer[numRemainder]; // Will have length of zero if no remainder
 
+	printf("NumBuffers: %d\n", numBuffers);
+	printf("NumRemainder: %d\n", numRemainder);
+
 	FILE *file = fopen(inputFile, "r");
 
     for (int i = 0; i < numBuffers; i++) {
