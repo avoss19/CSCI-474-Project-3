@@ -181,6 +181,6 @@ int main(int argc, char** argv) {
 
 	double average = nStepScan(inputFile, startTrack, bufferLength, totalRequests, lifo);
 
-	printf("Average Tracks Traversed: %d\n", average);
+	printf("Average Tracks Traversed: %f\n", average);
 	return 0;
 }
