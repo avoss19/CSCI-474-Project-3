@@ -109,7 +109,7 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
  *                      totalRequests - Number of total track requests to process
  * @note                This function currently prints out requested values to command line only
  *****************************************************************************/
-int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequests, bool lifo) {
+double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequests, bool lifo) {
 	// "Remainder" refers to any requests left over after buffers have been filled completely
 	// May occur if the number of requests does not divide among the buffers equally
     int numRemainder = totalRequests % bufferLength;
@@ -157,7 +157,7 @@ int nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalRequ
 
 	// If there is a remainder buffer, perform SCAN on it as well and then return the results
 	totalTracksTraversed += (&currentTrack, lastBuffer, bufferLength);
-	return ((int) (totalTracksTraversed / totalRequests));
+	return (totalTracksTraversed / totalRequests);
 }	
 
 int main(int argc, char** argv) {
@@ -179,7 +179,8 @@ int main(int argc, char** argv) {
     int lifoInt = atoi(lifoStr);
     bool lifo = lifoInt == 0;
 
-	int average = nStepScan(inputFile, startTrack, bufferLength, totalRequests, lifo);
+	double average = nStepScan(inputFile, startTrack, bufferLength, totalRequests, lifo);
 
 	printf("Average Tracks Traversed: %d\n", average);
+	return 0;
 }
