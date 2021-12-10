@@ -86,7 +86,7 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 			// Store next track accessed and # of tracks traversed
 			totalTracksTraversed += nextTrack[1];
 			tracksProcessed++;
-			printf("Next track: %d\tNum tracks: %d\tTracks Processed: %d\n", nextTrack[0], nextTrack[1], tracksProcessed);
+			//printf("Next track: %d\tNum tracks: %d\tTracks Processed: %d\n", nextTrack[0], nextTrack[1], tracksProcessed);
 
 			// Set new current track
 			*currentTrack = nextTrack[0];
@@ -145,6 +145,7 @@ double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalR
 		int totalTracksTraversed = 0;
         for (int i = (numBuffers - 1); i >= 0; i--) {
             totalTracksTraversed += scan(&currentTrack, buffers[i], bufferLength);
+			printf("Scanning buffer: %d\n", i);
         }
         return ((int) (totalTracksTraversed / totalRequests));
     }
@@ -160,6 +161,7 @@ double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalR
 
 	// If there is a remainder buffer, perform SCAN on it as well and then return the results
 	totalTracksTraversed += (&currentTrack, lastBuffer, bufferLength);
+	printf("Scanning last buffer\n");
 	return (totalTracksTraversed / totalRequests);
 }	
 
