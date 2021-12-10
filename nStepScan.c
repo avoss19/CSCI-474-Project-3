@@ -120,7 +120,7 @@ double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalR
 
 	printf("NumBuffers: %d\n", numBuffers);
 	printf("NumRemainder: %d\n", numRemainder);
-	char str[24] = remainderExists ? "RemainderExists: true!\n" : "RemainderExists: false\n";
+	char str[24] = (remainderExists ? "RemainderExists: true!\n" : "RemainderExists: false\n");
 
 	FILE *file = fopen(inputFile, "r");
 
