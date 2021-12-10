@@ -113,7 +113,7 @@ double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalR
 	// "Remainder" refers to any requests left over after buffers have been filled completely
 	// May occur if the number of requests does not divide among the buffers equally
     int numRemainder = totalRequests % bufferLength;
-    bool remainderExists = (numRemainder == 0);
+    bool remainderExists = (numRemainder != 0);
     int numBuffers = (int) floor(totalRequests / bufferLength);
     int buffers[numBuffers][bufferLength];
     int lastBuffer[numRemainder]; // Will have length of zero if no remainder
@@ -121,7 +121,7 @@ double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalR
 	printf("NumBuffers: %d\n", numBuffers);
 	printf("NumRemainder: %d\n", numRemainder);
 	if (remainderExists) printf("RemainderExists: True\n");
-	else printf("RemainderExists: False");
+	else printf("RemainderExists: False\n");
 
 	FILE *file = fopen(inputFile, "r");
 
