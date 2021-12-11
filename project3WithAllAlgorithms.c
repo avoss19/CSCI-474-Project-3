@@ -533,7 +533,7 @@ int main(int argc, char** argv) {
             scanResults[indexIntoArray][1] = scanAndCScan(startingPosition, fileName, 10, false);
             cScanResults[indexIntoArray][1] = scanAndCScan(startingPosition, fileName, 10, true);
             sstfResults[indexIntoArray][1] = sstfScan(startingPosition, fileName, 10);
-            nStepScanResults[indexIntoArray][1] = nStepScan(fileName, startingPosition, 15, 1000, false);
+            nStepScanResults[indexIntoArray][1] = nStepScan(fileName, startingPosition, 10, 1000, false);
             fScanResults[indexIntoArray][1] = nStepScan(fileName, startingPosition, 500, 1000, false);
             fifoResults[indexIntoArray][1] = nStepScan(fileName, startingPosition, 1, 1000, false);
             lifoResults[indexIntoArray][1] = nStepScan(fileName, startingPosition, 1, 1000, true);
