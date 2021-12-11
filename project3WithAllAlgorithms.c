@@ -551,13 +551,13 @@ int main(int argc, char** argv) {
 
     for (int i = 0; i < 15; i ++)
     {
-        totaledAveragesForSCAN = scanResults[i][1] + totaledAveragesForSCAN;
-        totaledAveragesForCSCAN = cScanResults[i][1] + totaledAveragesForCSCAN;
-        totaledAveragesForSSTF =  sstfResults[i][1] + totaledAveragesForSSTF;
-        totaledAveragesForNStepScan =  sstfResults[i][1] + totaledAveragesForNStepScan;
-        totaledAveragesForFScan =  sstfResults[i][1] + totaledAveragesForFScan;
-        totaledAveragesForFifo =  sstfResults[i][1] + totaledAveragesForFifo;
-        totaledAveragesForLifo =  sstfResults[i][1] + totaledAveragesForLifo;
+        totaledAveragesForSCAN += scanResults[i][1];
+        totaledAveragesForCSCAN += cScanResults[i][1];
+        totaledAveragesForSSTF +=  sstfResults[i][1];
+        totaledAveragesForNStepScan +=  nStepScanResults[i][1];
+        totaledAveragesForFScan +=  fScanResults[i][1];
+        totaledAveragesForFifo +=  fifoResults[i][1];
+        totaledAveragesForLifo += lifoResults[i][1];
     }
 
     scanResults[15][1] = totaledAveragesForSCAN / 15.0;
