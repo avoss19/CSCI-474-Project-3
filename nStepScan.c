@@ -118,6 +118,8 @@ double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalR
     int buffers[numBuffers][bufferLength];
     int lastBuffer[numRemainder]; // Will have length of zero if no remainder
 
+	if (lifo) printf("LIFO: True\n");
+	else printf("LIFO: False\n");
 	printf("NumBuffers: %d\n", numBuffers);
 	printf("NumRemainder: %d\n", numRemainder);
 	if (remainderExists) printf("RemainderExists: True\n");
@@ -193,8 +195,12 @@ int main(int argc, char** argv) {
     int totalRequests = atoi(totalRequestsStr);
 
     char* lifoStr = argv[5];
+	printf("LIFOStr: %s", lifoStr);
     int lifoInt = atoi(lifoStr);
+	printf("LIFOInt: %d", lifoInt);
     bool lifo = lifoInt == 0;
+	if (lifo) printf("LIFO: True");
+	else printf("LIFO: False");
 
 	double average = nStepScan(inputFile, startTrack, bufferLength, totalRequests, lifo);
 
