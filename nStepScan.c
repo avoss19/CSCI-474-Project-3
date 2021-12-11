@@ -50,7 +50,6 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 			// Store next track accessed and # of tracks traversed
 			totalTracksTraversed += nextTrack[1];
 			tracksProcessed++;
-			//printf("Next track: %d\tNum tracks: %d\tTracks Processed: %d\n", nextTrack[0], nextTrack[1], tracksProcessed);
 
 			// Set new current track and add new request in buffer
 			*currentTrack = nextTrack[0];
@@ -86,7 +85,6 @@ int scan(int *currentTrack, int inputArr[], int bufferSize) {
 			// Store next track accessed and # of tracks traversed
 			totalTracksTraversed += nextTrack[1];
 			tracksProcessed++;
-			//printf("Next track: %d\tNum tracks: %d\tTracks Processed: %d\n", nextTrack[0], nextTrack[1], tracksProcessed);
 
 			// Set new current track
 			*currentTrack = nextTrack[0];
@@ -118,13 +116,6 @@ double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalR
     int buffers[numBuffers][bufferLength];
     int lastBuffer[numRemainder]; // Will have length of zero if no remainder
 
-	if (lifo) printf("LIFO: True\n");
-	else printf("LIFO: False\n");
-	printf("NumBuffers: %d\n", numBuffers);
-	printf("NumRemainder: %d\n", numRemainder);
-	if (remainderExists) printf("RemainderExists: True\n");
-	else printf("RemainderExists: False\n");
-
 	FILE *file = fopen(inputFile, "r");
 
     for (int i = 0; i < numBuffers; i++) {
@@ -136,7 +127,6 @@ double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalR
     }
 	// Fill the remainder buffer if it needs to exist
     if (remainderExists) {
-		printf("Filling the remainder buffer\n");
         for (int i = 0; i < numRemainder; i++) {
             int buff[1];
             fscanf(file, "%d", buff);
@@ -145,15 +135,8 @@ double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalR
     }
     fclose(file);
 
-	printf("Remainder Buffer Contents: {");
-	for (int i = 0; i < numRemainder; i++) {
-		printf("%d, ", lastBuffer[i]);
-	}
-	printf("STOP}\n");
-
 	// LIFO requires the requests to be filled in reverse order, and will not have a remainder
     if (lifo) {
-		printf("LIFO\n");
 		int totalTracksTraversed = 0;
         for (int i = (numBuffers - 1); i >= 0; i--) {
             totalTracksTraversed += scan(&currentTrack, buffers[i], bufferLength);
@@ -168,11 +151,7 @@ double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalR
     }
 
 	// If there is no remainder buffer, return the results
-	if (!remainderExists) {
-		printf("No remainder\n");
-		return ((int) (totalTracksTraversed / totalRequests));
-	}
-	printf("Scanning last buffer\n");
+	if (!remainderExists) return ((int) (totalTracksTraversed / totalRequests));
 
 	// If there is a remainder buffer, perform SCAN on it as well and then return the results
 	totalTracksTraversed += (&currentTrack, lastBuffer, bufferLength);
@@ -195,12 +174,8 @@ int main(int argc, char** argv) {
     int totalRequests = atoi(totalRequestsStr);
 
     char* lifoStr = argv[5];
-	printf("LIFOStr: %s\n", lifoStr);
     int lifoInt = atoi(lifoStr);
-	printf("LIFOInt: %d\n", lifoInt);
     bool lifo = lifoInt != 0;
-	if (lifo) printf("LIFO: True\n\n");
-	else printf("LIFO: False\n\n");
 
 	double average = nStepScan(inputFile, startTrack, bufferLength, totalRequests, lifo);
 
