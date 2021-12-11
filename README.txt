@@ -1,3 +1,5 @@
+# Project 3
+
 Our algorithms that simulate the 7 different scheduling policies are in the project3WithAllAlgorithms.c file.
 In order to compile this file, you will need to run the gcc compiler on the file: 
 
@@ -13,3 +15,21 @@ for the individual runs. Runs 1-3 hold the average seek times for the runs on fi
 The next runs, 4-6, are the average seek times for the runs on file2.txt with a starting position of 0, 100, and 199 respectively. This pattern
 continues. The 16th row of data is average of all the average tracks traversed over the 15 runs. You can use the command cat fileName to view the
 contnents of these files.
+
+## Gerenerating the input files
+
+The input for project3WithAllAlgorith.c uses 5 input files called file1.txt, file2.txt, file3.txt, file4.txt, and file5.txt.
+
+Compile makeTrackNumberStreamFile.c by running:
+
+`gcc makeTrackNumberStreamFile.c -o makeTrackStream`
+
+Generate each of the files by running the following:
+
+```
+./makeTrackStream file1 200 1000
+./makeTrackStream file2 200 1000
+./makeTrackStream file3 200 1000
+./makeTrackStream file4 200 1000
+./makeTrackStream file5 200 1000
+```
