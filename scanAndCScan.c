@@ -78,7 +78,7 @@ int scanAndCScan(int startTrack, char* inputFile, int size, bool cScan){
 				trackReset = false;
 			}
 
-			// Store next track accessed and # of tracks travered
+			// Store next track accessed and # of tracks traversed
 			tableResults[tracksProcessed][0] = nextTrack[0];
 			tableResults[tracksProcessed][1] = nextTrack[1];
 			tracksProcessed++;
@@ -99,31 +99,30 @@ int scanAndCScan(int startTrack, char* inputFile, int size, bool cScan){
 
 		// Moving left
 		else if (direction == 0) {
-                        int nextTrack[3] = {201, 201, 0};
-                        for (int j = 0; j < bufferSize; j++) {
+			int nextTrack[3] = {201, 201, 0};
+			for (int j = 0; j < bufferSize; j++) {
+				// If track is smaller than current Track, continue on
+				if (requestBuffer[j] <= currentTrack) {
+					int tracksTraversed = (currentTrack - requestBuffer[j]);
 
-                                // If track is smaller than current Track, continue on
-                                if (requestBuffer[j] <= currentTrack) {
-                                        int tracksTraversed = (currentTrack - requestBuffer[j]);
-
-                                        // If track distance is smaller than what is stored, store at new next track
-                                        if (tracksTraversed < nextTrack[1]) {
-                                                nextTrack[0] = requestBuffer[j];
-                                                nextTrack[1] = tracksTraversed;
+					// If track distance is smaller than what is stored, store at new next track
+					if (tracksTraversed < nextTrack[1]) {
+						nextTrack[0] = requestBuffer[j];
+						nextTrack[1] = tracksTraversed;
 						nextTrack[2] = j;
-                                        }
-                                }
-                        }
-                        // No smaller Track found, switch directions
-                        if (nextTrack[0] == 201) {
-                                direction = 1;
-                                continue;
-                        }
+					}
+				}
+			}
+			// No smaller Track found, switch directions
+			if (nextTrack[0] == 201) {
+				direction = 1;
+				continue;
+			}
 
-                        // Store next track accessed and # of tracks travered
-                        tableResults[tracksProcessed][0] = nextTrack[0];
-                        tableResults[tracksProcessed][1] = nextTrack[1];
-                        tracksProcessed++;
+			// Store next track accessed and # of tracks travered
+			tableResults[tracksProcessed][0] = nextTrack[0];
+			tableResults[tracksProcessed][1] = nextTrack[1];
+			tracksProcessed++;
 
 			// Set new current track and add new request in buffer
 			currentTrack = nextTrack[0];
@@ -137,10 +136,7 @@ int scanAndCScan(int startTrack, char* inputFile, int size, bool cScan){
 			}
 			else
 				requestBuffer[index] = 201;
-
-                }
-
-
+		}
 	}
 //	for (int i = 0; i < 100; i++) {
 //		printf("Next Track: %d\n", tableResults[i][0]);
