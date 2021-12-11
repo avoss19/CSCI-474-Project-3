@@ -195,12 +195,12 @@ int main(int argc, char** argv) {
     int totalRequests = atoi(totalRequestsStr);
 
     char* lifoStr = argv[5];
-	printf("LIFOStr: %s", lifoStr);
+	printf("LIFOStr: %s\n", lifoStr);
     int lifoInt = atoi(lifoStr);
-	printf("LIFOInt: %d", lifoInt);
-    bool lifo = lifoInt == 0;
-	if (lifo) printf("LIFO: True");
-	else printf("LIFO: False");
+	printf("LIFOInt: %d\n", lifoInt);
+    bool lifo = lifoInt != 0;
+	if (lifo) printf("LIFO: True\n");
+	else printf("LIFO: False\n");
 
 	double average = nStepScan(inputFile, startTrack, bufferLength, totalRequests, lifo);
 
