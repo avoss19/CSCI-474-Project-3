@@ -151,6 +151,7 @@ double nStepScan(char* inputFile, int currentTrack, int bufferLength, int totalR
 
 	// LIFO requires the requests to be filled in reverse order, and will not have a remainder
     if (lifo) {
+		printf("LIFO\n");
 		int totalTracksTraversed = 0;
         for (int i = (numBuffers - 1); i >= 0; i--) {
             totalTracksTraversed += scan(&currentTrack, buffers[i], bufferLength);
